@@ -8,7 +8,10 @@
 <?import javafx.scene.layout.AnchorPane?>
 
 
-<AnchorPane prefHeight="519.0" prefWidth="806.0" xmlns="http://javafx.com/javafx/16" xmlns:fx="http://javafx.com/fxml/1" fx:controller="ucf.assignments.InventoryApp">
+<AnchorPane prefHeight="519.0" prefWidth="806.0"
+            xmlns="http://javafx.com/javafx/16"
+            xmlns:fx="http://javafx.com/fxml/1"
+            fx:controller="ucf.assignments.InventoryAppController">
    <children>
       <TableView fx:id="tableView" editable="true" prefHeight="352.0" prefWidth="806.0">
         <columns>
