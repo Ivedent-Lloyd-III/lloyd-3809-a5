@@ -92,7 +92,7 @@ public class InventoryAppController implements Initializable {
                 // this method is to allows the items in the columns to be edited by the user
                 // allow the user to click the items on the table to edit them
                 itemPriceColumn.setCellFactory(TextFieldTableCell.forTableColumn());
-                itemNameColumn.setOnEditCommit(e->{
+                itemPriceColumn.setOnEditCommit(e->{
                         e.getTableView().getItems().get(e.getTablePosition().getRow()).setItemPrice(e.getNewValue());
                 });
                 itemSerialNumberColumn.setCellFactory(TextFieldTableCell.forTableColumn());
