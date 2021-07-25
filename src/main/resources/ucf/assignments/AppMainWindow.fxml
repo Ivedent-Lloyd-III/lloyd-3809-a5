@@ -20,14 +20,15 @@
          </opaqueInsets>
       </TableView>
       <Button fx:id="addItemButton" layoutX="88.0" layoutY="450.0" mnemonicParsing="false" onAction="#addButtonClicked" prefHeight="26.0" prefWidth="78.0" text="Add Item" />
-      <Button fx:id="itemDeleteButton" layoutX="713.0" layoutY="436.0" mnemonicParsing="false" onAction="#deleteButtonClicked" text="Delete Item" />
+      <Button fx:id="itemDeleteButton" layoutX="713.0" layoutY="463.0" mnemonicParsing="false" onAction="#deleteButtonClicked" text="Delete Item" />
       <TextField fx:id="newItemPriceTextField" layoutX="13.0" layoutY="364.0" prefHeight="26.0" prefWidth="230.0" promptText="Item Value" />
       <TextField fx:id="newItemSerialNumberTextField" layoutX="13.0" layoutY="391.0" prefHeight="26.0" prefWidth="229.0" promptText="Item Serial Number" />
       <TextField fx:id="newItemNameTextField" layoutX="13.0" layoutY="417.0" prefHeight="26.0" prefWidth="229.0" promptText="Item Name" />
-      <TextField fx:id="itemSearchTextField" layoutX="404.0" layoutY="371.0" prefHeight="26.0" prefWidth="229.0" promptText="Enter Title or Serial Number" />
+      <TextField fx:id="itemSearchTextField" layoutX="404.0" layoutY="371.0" prefHeight="26.0" prefWidth="229.0" promptText="Enter Name or Serial Number" />
       <Button fx:id="searchButton" layoutX="325.0" layoutY="371.0" mnemonicParsing="false" onAction="#searchButtonClicked" prefHeight="26.0" prefWidth="78.0" text="Search" />
       <TextField fx:id="itemSearchDisplay" editable="false" layoutX="325.0" layoutY="411.0" prefHeight="26.0" prefWidth="307.0" />
-      <Button fx:id="inventorySaveButton" layoutX="713.0" layoutY="463.0" mnemonicParsing="false" onAction="#saveButtonClicked" prefHeight="26.0" prefWidth="78.0" text="Save" />
+      <Button fx:id="inventorySaveButton" layoutX="712.0" layoutY="384.0" mnemonicParsing="false" onAction="#saveButtonClicked" prefHeight="26.0" prefWidth="78.0" text="Save" />
+      <Button fx:id="itemOpenButton" layoutX="712.0" layoutY="424.0" mnemonicParsing="false" onAction="#openButtonClicked" prefHeight="26.0" prefWidth="78.0" text="Open" />
    </children>
    <opaqueInsets>
       <Insets />

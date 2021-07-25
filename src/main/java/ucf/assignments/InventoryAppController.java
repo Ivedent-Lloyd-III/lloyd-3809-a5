@@ -159,5 +159,10 @@ public class InventoryAppController implements Initializable {
 
         }
 
+        @FXML
+        void openButtonClicked(ActionEvent event) {
+
+        }
+
 }
 
