@@ -7,16 +7,16 @@ package ucf.assignments;
 
 import javafx.collections.FXCollections;
 import javafx.collections.ObservableList;
+import javafx.collections.transformation.FilteredList;
+import javafx.collections.transformation.SortedList;
 import javafx.event.ActionEvent;
 import javafx.fxml.FXML;
 import javafx.fxml.Initializable;
-import javafx.scene.control.Button;
 import javafx.scene.control.TableColumn;
 import javafx.scene.control.TableView;
 import javafx.scene.control.TextField;
 import javafx.scene.control.cell.PropertyValueFactory;
 import javafx.scene.control.cell.TextFieldTableCell;
-
 import java.net.URL;
 import java.util.ResourceBundle;
 
@@ -24,73 +24,39 @@ public class InventoryAppController implements Initializable {
 
         @FXML
         private TableView<InventoryItems> tableView;
-
         @FXML
         private TableColumn<InventoryItems, String> itemPriceColumn;
-
         @FXML
         private TableColumn<InventoryItems, String> itemSerialNumberColumn;
-
         @FXML
         private TableColumn<InventoryItems, String> itemNameColumn;
-
-        @FXML
-        private Button addItemButton;
-
-        @FXML
-        private Button itemDeleteButton;
-
         @FXML
         private TextField newItemPriceTextField;
-
         @FXML
         private TextField newItemSerialNumberTextField;
-
         @FXML
         private TextField newItemNameTextField;
-
         @FXML
         private TextField itemSearchTextField;
 
-        @FXML
-        private Button searchButton;
-
-        @FXML
-        private TextField itemSearchDisplay;
-
-        @FXML
-        private Button inventorySaveButton;
+        ObservableList<InventoryItems> tableData = FXCollections.observableArrayList();
 
         @Override
         public void initialize(URL location, ResourceBundle resources) {
-                // fill data table with sample data
-                // data must be filled using arrays
-                // table must be editable
-                // buttons have to be used to add and delete rows
-                loadTableSampleData();
-                initializeTable();
 
-        }
+                tableData.add(new InventoryItems("$499.99", "0123456789", "PS5"));
+                tableData.add(new InventoryItems("$399.99", "Asd1234gg1", "Xbox One"));
+                tableData.add(new InventoryItems("$599.99", "zBBi3345aa", "Samsung TV"));
+                tableData.add(new InventoryItems("$199.99", "5129387jwe", "Nitendo Switch Lite"));
+                tableData.add(new InventoryItems("$899.99", "3fju4HHjdA", "Macbook Air"));
+                tableData.add(new InventoryItems("$1,099.99", "k55ghSSwe", "Macbook Pro"));
 
-        public void initializeTable(){
-                initializeColumns();
-        }
+                tableView.setItems(tableData);
 
-        public void initializeColumns(){
-                // columns must be formatted using items class
-                // format using getters and setters in another class for the items
                 itemPriceColumn.setCellValueFactory(new PropertyValueFactory<InventoryItems, String>("itemPrice"));
                 itemSerialNumberColumn.setCellValueFactory(new PropertyValueFactory<InventoryItems, String>("itemSerialNumber"));
                 itemNameColumn.setCellValueFactory(new PropertyValueFactory<InventoryItems, String>("itemName"));
 
-                // edit the columns using edit columns method
-                editColumns();
-        }
-
-        public void editColumns(){
-
-                // this method is to allows the items in the columns to be edited by the user
-                // allow the user to click the items on the table to edit them
                 itemPriceColumn.setCellFactory(TextFieldTableCell.forTableColumn());
                 itemPriceColumn.setOnEditCommit(e->{
                         e.getTableView().getItems().get(e.getTablePosition().getRow()).setItemPrice(e.getNewValue());
@@ -106,29 +72,40 @@ public class InventoryAppController implements Initializable {
 
                 tableView.setEditable(true);
 
-        }
+                FilteredList<InventoryItems> filteredItems = new FilteredList<>(this.tableData, b -> true);
+                itemSearchTextField.textProperty().addListener((observable, oldValue, newValue) -> {
+                        filteredItems.setPredicate(items -> {
+                                if (newValue == null || newValue.isEmpty() || newValue.isBlank()){
+                                        return true;
+                                }
+                                String filterLowerCase = newValue.toLowerCase();
+                                if (items.getItemSerialNumber().toLowerCase().contains(filterLowerCase)){
+                                        return true;
+                                }
+                                else if(items.getItemName().toLowerCase().contains(filterLowerCase)){
+                                        return true;
+                                }
+                                else
+                                        return false;
+                        });
+                });
 
-        public void loadTableSampleData(){
-                // load sample data
-                // data must also be edited by the user and can be deleted completely
-                ObservableList<InventoryItems> sampleData = FXCollections.observableArrayList();
-                sampleData.add(new InventoryItems("$499.99", "0123456789", "PS5"));
+                SortedList<InventoryItems> sortedItems = new SortedList<>(filteredItems);
+                sortedItems.comparatorProperty().bind(tableView.comparatorProperty());
+                tableView.setItems(sortedItems);
 
-                tableView.setItems(sampleData);
+
         }
 
         @FXML
         void addButtonClicked(ActionEvent event) {
-                // the button must add a new item name, due date, and description
-                // the user then can edit the status upon completion
-                // get the text input from the user
-                // after the user clicks button, array values must be populated and displayed correctly
-                // after the user enters, the text windows must be cleared
+
                 InventoryItems newItem = new InventoryItems();
                 newItem.setItemPrice(newItemPriceTextField.getText());
                 newItem.setItemSerialNumber(newItemSerialNumberTextField.getText());
                 newItem.setItemName(newItemNameTextField.getText());
-                tableView.getItems().addAll(newItem);
+
+                tableData.add(newItem);
 
                 newItemPriceTextField.clear();
                 newItemSerialNumberTextField.clear();
@@ -139,28 +116,10 @@ public class InventoryAppController implements Initializable {
         @FXML
         void deleteButtonClicked(ActionEvent event) {
 
-                // allow the user to highlight a row in the column and delete it from the array
-                // remove all items from the array index
-                ObservableList<InventoryItems> itemSelected, allItems;
-                allItems = tableView.getItems();
+                ObservableList<InventoryItems> itemSelected;
                 itemSelected = tableView.getSelectionModel().getSelectedItems();
 
-                itemSelected.forEach(allItems::remove);
-
-        }
-
-        @FXML
-        void saveButtonClicked(ActionEvent event) {
-
-        }
-
-        @FXML
-        void searchButtonClicked(ActionEvent event) {
-
-        }
-
-        @FXML
-        void openButtonClicked(ActionEvent event) {
+                tableData.removeAll(itemSelected);
 
         }
 
