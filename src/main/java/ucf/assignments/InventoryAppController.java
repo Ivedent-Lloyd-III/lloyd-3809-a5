@@ -112,7 +112,7 @@ public class InventoryAppController implements Initializable {
                 // load sample data
                 // data must also be edited by the user and can be deleted completely
                 ObservableList<InventoryItems> sampleData = FXCollections.observableArrayList();
-                sampleData.add(new InventoryItems("$499.99", "12345678", "PS5"));
+                sampleData.add(new InventoryItems("$499.99", "0123456789", "PS5"));
 
                 tableView.setItems(sampleData);
         }
