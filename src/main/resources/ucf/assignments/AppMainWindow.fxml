@@ -11,7 +11,7 @@
    <children>
       <TableView fx:id="tableView" editable="true" prefHeight="352.0" prefWidth="806.0">
         <columns>
-          <TableColumn fx:id="itemValueColumn" prefWidth="152.79998779296875" text="Value" />
+          <TableColumn fx:id="itemPriceColumn" prefWidth="152.79998779296875" text="Value" />
           <TableColumn fx:id="itemSerialNumberColumn" prefWidth="232.79994201660156" text="Serial Number" />
             <TableColumn fx:id="itemNameColumn" minWidth="0.0" prefWidth="420.0" text="Name" />
         </columns>
@@ -19,15 +19,15 @@
             <Insets />
          </opaqueInsets>
       </TableView>
-      <Button fx:id="addItemButton" layoutX="88.0" layoutY="450.0" mnemonicParsing="false" prefHeight="26.0" prefWidth="78.0" text="Add Item" />
-      <Button fx:id="itemDeleteButton" layoutX="713.0" layoutY="436.0" mnemonicParsing="false" text="Delete Item" />
-      <TextField fx:id="newItemValueTextField" layoutX="13.0" layoutY="364.0" prefHeight="26.0" prefWidth="230.0" promptText="Item Value" />
+      <Button fx:id="addItemButton" layoutX="88.0" layoutY="450.0" mnemonicParsing="false" onAction="#addButtonClicked" prefHeight="26.0" prefWidth="78.0" text="Add Item" />
+      <Button fx:id="itemDeleteButton" layoutX="713.0" layoutY="436.0" mnemonicParsing="false" onAction="#deleteButtonClicked" text="Delete Item" />
+      <TextField fx:id="newItemPriceTextField" layoutX="13.0" layoutY="364.0" prefHeight="26.0" prefWidth="230.0" promptText="Item Value" />
       <TextField fx:id="newItemSerialNumberTextField" layoutX="13.0" layoutY="391.0" prefHeight="26.0" prefWidth="229.0" promptText="Item Serial Number" />
       <TextField fx:id="newItemNameTextField" layoutX="13.0" layoutY="417.0" prefHeight="26.0" prefWidth="229.0" promptText="Item Name" />
       <TextField fx:id="itemSearchTextField" layoutX="404.0" layoutY="371.0" prefHeight="26.0" prefWidth="229.0" promptText="Enter Title or Serial Number" />
-      <Button fx:id="searchButton" layoutX="325.0" layoutY="371.0" mnemonicParsing="false" prefHeight="26.0" prefWidth="78.0" text="Search" />
+      <Button fx:id="searchButton" layoutX="325.0" layoutY="371.0" mnemonicParsing="false" onAction="#searchButtonClicked" prefHeight="26.0" prefWidth="78.0" text="Search" />
       <TextField fx:id="itemSearchDisplay" editable="false" layoutX="325.0" layoutY="411.0" prefHeight="26.0" prefWidth="307.0" />
-      <Button fx:id="inventorySaveButton" layoutX="713.0" layoutY="463.0" mnemonicParsing="false" prefHeight="26.0" prefWidth="78.0" text="Save" />
+      <Button fx:id="inventorySaveButton" layoutX="713.0" layoutY="463.0" mnemonicParsing="false" onAction="#saveButtonClicked" prefHeight="26.0" prefWidth="78.0" text="Save" />
    </children>
    <opaqueInsets>
       <Insets />

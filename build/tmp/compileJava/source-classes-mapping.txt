@@ -1,4 +1,6 @@
-ucf/assignments/InventoryAppController.java
- ucf.assignments.InventoryAppController
 ucf/assignments/InventoryApp.java
  ucf.assignments.InventoryApp
+ucf/assignments/InventoryItems.java
+ ucf.assignments.InventoryItems
+ucf/assignments/InventoryAppController.java
+ ucf.assignments.InventoryAppController
