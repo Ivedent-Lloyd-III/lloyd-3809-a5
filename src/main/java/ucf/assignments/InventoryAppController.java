@@ -19,13 +19,11 @@ import javafx.scene.control.cell.PropertyValueFactory;
 import javafx.scene.control.cell.TextFieldTableCell;
 import javafx.stage.FileChooser;
 import javafx.stage.Stage;
-
 import java.io.File;
 import java.io.FileNotFoundException;
 import java.io.PrintWriter;
 import java.net.URL;
 import java.util.ResourceBundle;
-import java.util.Scanner;
 
 public class InventoryAppController implements Initializable {
 
