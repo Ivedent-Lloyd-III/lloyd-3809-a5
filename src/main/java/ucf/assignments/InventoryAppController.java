@@ -17,8 +17,15 @@ import javafx.scene.control.TableView;
 import javafx.scene.control.TextField;
 import javafx.scene.control.cell.PropertyValueFactory;
 import javafx.scene.control.cell.TextFieldTableCell;
+import javafx.stage.FileChooser;
+import javafx.stage.Stage;
+
+import java.io.File;
+import java.io.FileNotFoundException;
+import java.io.PrintWriter;
 import java.net.URL;
 import java.util.ResourceBundle;
+import java.util.Scanner;
 
 public class InventoryAppController implements Initializable {
 
@@ -40,9 +47,22 @@ public class InventoryAppController implements Initializable {
         private TextField itemSearchTextField;
 
         ObservableList<InventoryItems> tableData = FXCollections.observableArrayList();
+        FileChooser fileChooser = new FileChooser();
+
+        public void saveFile(File file, ObservableList<InventoryItems> content) {
+                try {
+                        PrintWriter printWriter = new PrintWriter(file);
+                        printWriter.write(String.valueOf(content));
+                        printWriter.close();
+                } catch (FileNotFoundException e) {
+                        e.printStackTrace();
+                }
+        }
 
         @Override
         public void initialize(URL location, ResourceBundle resources) {
+                String currentDirectory = System.getProperty("user.dir");
+                fileChooser.setInitialDirectory(new File(""+currentDirectory+""));
 
                 tableData.add(new InventoryItems("$499.99", "0123456789", "PS5"));
                 tableData.add(new InventoryItems("$399.99", "Asd1234gg1", "Xbox One"));
@@ -89,17 +109,13 @@ public class InventoryAppController implements Initializable {
                                         return false;
                         });
                 });
-
                 SortedList<InventoryItems> sortedItems = new SortedList<>(filteredItems);
                 sortedItems.comparatorProperty().bind(tableView.comparatorProperty());
                 tableView.setItems(sortedItems);
-
-
         }
 
         @FXML
         void addButtonClicked(ActionEvent event) {
-
                 InventoryItems newItem = new InventoryItems();
                 newItem.setItemPrice(newItemPriceTextField.getText());
                 newItem.setItemSerialNumber(newItemSerialNumberTextField.getText());
@@ -110,18 +126,36 @@ public class InventoryAppController implements Initializable {
                 newItemPriceTextField.clear();
                 newItemSerialNumberTextField.clear();
                 newItemNameTextField.clear();
-
         }
 
         @FXML
         void deleteButtonClicked(ActionEvent event) {
-
                 ObservableList<InventoryItems> itemSelected;
                 itemSelected = tableView.getSelectionModel().getSelectedItems();
 
                 tableData.removeAll(itemSelected);
-
         }
 
+        @FXML
+        void openFileClicked(ActionEvent event) {
+                /*
+                File file = fileChooser.showOpenDialog(new Stage());
+                try {
+                        Scanner scanner = new Scanner(file);
+                        while(scanner.hasNextLine()){}
+                } catch (FileNotFoundException e) {
+                        e.printStackTrace();
+                }
+
+                 */
+        }
+
+        @FXML
+        void saveFileClicked(ActionEvent event) {
+                File file = fileChooser.showSaveDialog(new Stage());
+                if(file != null){
+                        saveFile(file, tableData);
+                }
+        }
 }
 
