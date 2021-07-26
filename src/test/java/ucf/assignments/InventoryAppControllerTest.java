@@ -17,7 +17,7 @@ class InventoryAppControllerTest {
 
     @Test
     void addButton() {
-        boolean testAdd = true;
+        int testAdd = 1;
 
         ArrayList<InventoryItems> tableDataAddTest = new ArrayList<>();
         tableDataAddTest.add(new InventoryItems("$499.99", "0123456789", "PS5"));
@@ -26,7 +26,7 @@ class InventoryAppControllerTest {
         tableDataAddTest.add(new InventoryItems("$199.99", "5129387jwe", "Nitendo Switch Lite"));
         tableDataAddTest.add(new InventoryItems("$899.99", "3fju4HHjdA", "Macbook Air"));
 
-        while( testAdd != false ){
+        while( testAdd != 0 ){
 
             tableDataAddTest.add(new InventoryItems("$1,099.99", "k55ghSSwe", "Macbook Pro"));
 
@@ -45,7 +45,7 @@ class InventoryAppControllerTest {
 
     @Test
     void deleteButton() {
-        boolean testDelete = true;
+        int testDelete = 1;
 
         ArrayList<InventoryItems> tableDataDeleteTest = new ArrayList<>();
         tableDataDeleteTest.add(new InventoryItems("$499.99", "0123456789", "PS5"));
@@ -55,7 +55,7 @@ class InventoryAppControllerTest {
         tableDataDeleteTest.add(new InventoryItems("$899.99", "3fju4HHjdA", "Macbook Air"));
         tableDataDeleteTest.add(new InventoryItems("$1,099.99", "k55ghSSwe", "Macbook Pro"));
 
-        while( testDelete != false ){
+        while( testDelete != 0 ){
 
             tableDataDeleteTest.remove(new InventoryItems("$1,099.99", "k55ghSSwe", "Macbook Pro"));
 
