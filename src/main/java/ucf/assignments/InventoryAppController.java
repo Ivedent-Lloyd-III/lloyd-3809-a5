@@ -27,6 +27,7 @@ import java.util.ResourceBundle;
 
 public class InventoryAppController implements Initializable {
 
+        //use scene builder to generate controllers using skeleton view
         @FXML
         private TableView<InventoryItems> tableView;
         @FXML
@@ -44,10 +45,15 @@ public class InventoryAppController implements Initializable {
         @FXML
         private TextField itemSearchTextField;
 
+        // initialize an observable list for the tableview
+        // initialize the file chooser
+        // file writer function for saving data
         ObservableList<InventoryItems> tableData = FXCollections.observableArrayList();
         FileChooser fileChooser = new FileChooser();
 
         public void saveFile(File file, ObservableList<InventoryItems> content) {
+                // print to a file using a file writer
+                // exception is needed try/catch
                 try {
                         PrintWriter printWriter = new PrintWriter(file);
                         printWriter.write(String.valueOf(content));
@@ -59,9 +65,17 @@ public class InventoryAppController implements Initializable {
 
         @Override
         public void initialize(URL location, ResourceBundle resources) {
+                // use scene builder to create a gui with table view
+                // the table view must be editable and must be able to add data to the table
+                // must delete data from table
+                // must be able to look up data and sort data
+                // all controls must be extracted to another function in order for testing
+
+                // get the user directory for the save button
                 String currentDirectory = System.getProperty("user.dir");
                 fileChooser.setInitialDirectory(new File(""+currentDirectory+""));
 
+                // populate the table with sampled data but adding to the list
                 tableData.add(new InventoryItems("$499.99", "0123456789", "PS5"));
                 tableData.add(new InventoryItems("$399.99", "Asd1234gg1", "Xbox One"));
                 tableData.add(new InventoryItems("$599.99", "zBBi3345aa", "Samsung TV"));
@@ -75,6 +89,8 @@ public class InventoryAppController implements Initializable {
                 itemSerialNumberColumn.setCellValueFactory(new PropertyValueFactory<InventoryItems, String>("itemSerialNumber"));
                 itemNameColumn.setCellValueFactory(new PropertyValueFactory<InventoryItems, String>("itemName"));
 
+                // allow the table to be editable also set editable to true
+                // the user edits the table by clicking the element
                 itemPriceColumn.setCellFactory(TextFieldTableCell.forTableColumn());
                 itemPriceColumn.setOnEditCommit(e->{
                         e.getTableView().getItems().get(e.getTablePosition().getRow()).setItemPrice(e.getNewValue());
@@ -90,6 +106,8 @@ public class InventoryAppController implements Initializable {
 
                 tableView.setEditable(true);
 
+                //create a filtered list to only show items the user searches
+                //make sure to make all strings lowercase
                 FilteredList<InventoryItems> filteredItems = new FilteredList<>(this.tableData, b -> true);
                 itemSearchTextField.textProperty().addListener((observable, oldValue, newValue) -> {
                         filteredItems.setPredicate(items -> {
@@ -112,8 +130,27 @@ public class InventoryAppController implements Initializable {
                 tableView.setItems(sortedItems);
         }
 
+        // extract methods in order to test
         @FXML
-        void addButtonClicked(ActionEvent event) {
+        public void addButtonClicked(ActionEvent event) {
+                addButton();
+        }
+        @FXML
+        public void deleteButtonClicked(ActionEvent event) {
+                deleteButton();
+        }
+        @FXML
+        public void openFileClicked(ActionEvent event) {
+                openButton();
+        }
+        @FXML
+        public void saveFileClicked(ActionEvent event) {
+                saveButton();
+        }
+
+        public void addButton(){
+                // when clicking the button the text box contents need to be added to the list
+                // make sure to clear the boxes
                 InventoryItems newItem = new InventoryItems();
                 newItem.setItemPrice(newItemPriceTextField.getText());
                 newItem.setItemSerialNumber(newItemSerialNumberTextField.getText());
@@ -126,16 +163,15 @@ public class InventoryAppController implements Initializable {
                 newItemNameTextField.clear();
         }
 
-        @FXML
-        void deleteButtonClicked(ActionEvent event) {
+        public void deleteButton(){
+                // when the button is pressed remove the item from the list
                 ObservableList<InventoryItems> itemSelected;
                 itemSelected = tableView.getSelectionModel().getSelectedItems();
 
                 tableData.removeAll(itemSelected);
         }
 
-        @FXML
-        void openFileClicked(ActionEvent event) {
+        public void openButton(){
                 /*
                 File file = fileChooser.showOpenDialog(new Stage());
                 try {
@@ -148,8 +184,8 @@ public class InventoryAppController implements Initializable {
                  */
         }
 
-        @FXML
-        void saveFileClicked(ActionEvent event) {
+        public void saveButton(){
+                // when the button is clicked the file chooser needs to be opened in a new window
                 File file = fileChooser.showSaveDialog(new Stage());
                 if(file != null){
                         saveFile(file, tableData);

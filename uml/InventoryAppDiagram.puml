@@ -1,27 +1,53 @@
 @startuml
 'https://plantuml.com/class-diagram
 
-abstract class AbstractList
-abstract AbstractCollection
-interface List
-interface Collection
-
-List <|-- AbstractList
-Collection <|-- AbstractCollection
-
-Collection <|- List
-AbstractCollection <|- AbstractList
-AbstractList <|-- ArrayList
-
-class ArrayList {
-Object[] elementData
-size()
+class InventoryApp{
+    +main()
+    +start()
 }
 
-enum TimeUnit {
-DAYS
-HOURS
-MINUTES
+class InventoryAppController {
+
+
+        -private TableView<InventoryItems> tableView;
+        -private TableColumn<InventoryItems, String> itemPriceColumn;
+        -private TableColumn<InventoryItems, String> itemSerialNumberColumn;
+        -private TableColumn<InventoryItems, String> itemNameColumn;
+        -private TextField newItemPriceTextField;
+        -private TextField newItemSerialNumberTextField;
+        -private TextField newItemNameTextField;
+        -private TextField itemSearchTextField;
+        -private ObservableList<InventoryItems> tableData
+        -private FileChooser fileChooser
+
+        +public void saveFile(File file, ObservableList<InventoryItems> content)
+        +public void initialize(URL location, ResourceBundle resources)
+        +public void saveFileClicked(ActionEvent event)
+        +public void openFileClicked(ActionEvent event)
+        +public void deleteButtonClicked(ActionEvent event)
+        +public void addButtonClicked(ActionEvent event)
+        +public void addButton()
+        +public void deleteButton()
+        +public void saveButton()
+        +public void openButton()
+
 }
+
+class InventoryItems {
+
++ public InventoryItems()
++ public InventoryItems()
++ public void setItemPrice()
++ public void setItemSerialNumber()
++ public void setItemName()
++ public String getItemPrice()
++ public String getItemSerialNumber()
++ public String getItemName()
+
+}
+
+InventoryApp - InventoryAppController
+InventoryAppController -- InventoryItems
+javafx.Application <|-- InventoryApp
 
 @enduml
