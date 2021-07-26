@@ -7,8 +7,10 @@ package ucf.assignments;
 
 import javafx.collections.FXCollections;
 import javafx.collections.ObservableList;
+import javafx.stage.Stage;
 import org.junit.jupiter.api.Test;
 
+import java.io.File;
 import java.util.ArrayList;
 
 import static org.junit.jupiter.api.Assertions.*;
@@ -74,13 +76,19 @@ class InventoryAppControllerTest {
 
     @Test
     void saveFile() {
+        int saveFileTest = 1;
+        //assertEquals(saveFileTest, 1);
     }
 
     @Test
     void openButton() {
+        int openButtonTest = 1;
+        //assertEquals(openButtonTest, 1);
     }
 
     @Test
     void saveButton() {
+        int saveButtonTest = 1;
+        //assertEquals(saveButtonTest, 1);
     }
 }
